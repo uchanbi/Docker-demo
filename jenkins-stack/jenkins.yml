@@ -1,0 +1,18 @@
+version: "3"
+services:
+
+  jenkins:
+    image: jenkinsci/jenkins
+    ports:
+      - ${UI_PORT:-8080}:8080
+      - ${AGENTS_PORT:-50000}:50000
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/Users/bihan/ING/Docker/docker_demo:/var/jenkins_home bihanc/jenkins"
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
